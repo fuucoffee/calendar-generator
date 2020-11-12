@@ -1,0 +1,78 @@
+<html char="utf8">
+  <head>
+<style>
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: 0;
+}
+html {
+  font-family: sans-serif;
+  color: #666;
+  font-size: 16px;
+}
+.calendar-container {
+  width: 800px;
+  margin: 36px auto;
+  padding: 36px 0 0;
+}
+.calendar-title {
+  text-align: center;
+  padding: 12px 0 36px;
+  font-size: 2rem;
+}
+.calendar-wrapper {
+  padding: 24px 48px 24px 12px;
+}
+.calendar {
+  width: 100%;
+  text-align: right;
+  border-collapse: collapse;
+}
+.calendar thead th {
+  font-weight: normal;
+  color: #aaa;
+  padding: 12px;
+  font-size: 1.25rem;
+  width: calc(100% / 7);
+}
+.calendar tbody td {
+  font-weight: normal;
+  padding: 16px 12px 80px;
+  border-right: solid 1px #ddd;
+  font-size: 1.5rem;
+}
+.calendar tbody td:nth-of-type(1),
+.calendar tbody td.holiday {
+  color: #ee3333;
+}
+.calendar tbody td.disabled {
+  color: #ddd;
+}
+</style>
+  </head>
+  <body>
+    <div class="calendar-container">
+      <h2 class="calendar-title"></h1>
+      <div class="calendar-wrapper">
+        <table class="calendar">
+          <thead>
+            <tr>
+              <th>Sun</th>
+              <th>Mon</th>
+              <th>Tue</th>
+              <th>Wed</th>
+              <th>Thu</th>
+              <th>Fri</th>
+              <th>Sat</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+    <script src="./config.js"></script>
+    <script src="./index.js"></script>
+  </body>
+</html>
