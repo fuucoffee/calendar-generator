@@ -1,5 +1,7 @@
 # Calendar Generator
 
+[デモ](https://fuucoffee.github.io/calendar-generator/index.html?month=2020/11&holidays=3,23)
+
 ![screenshot of calendar generator](./docs/images/202011.png)
 `?month=2020/11&holidays=3,23` の場合のスクリーンショット
 
