@@ -36,7 +36,7 @@ function getTableBodyHTML(targetMonth, holidays) {
     html += '<tr>';
 
     for (let d = 1; d <= 7; d += 1) {
-      if (w == 0 && d < start.getDay()) {
+      if (w == 0 && d < start.getDay() + 1) {
         let num = lastDate - startDay + d;
         html += '<td class="disabled">' + num + '</td>';
       } else if (date > endDate) {
