@@ -2,7 +2,21 @@ function getTitle(targetMonth) {
   return targetMonth.replace('/', '.');
 }
 
-function getTableBodyHTML(targetMonth) {
+function parseSearch(searchString) {
+  const result = {};
+  const queries = searchString.replace(/^\?/, '').split('&');
+  for (const query of queries) {
+    let [key, value] = query.split('=');
+
+    if (value.indexOf(',') !== -1) {
+      value = value.split(',');
+    }
+    result[key] = value;
+  }
+  return result;
+}
+
+function getTableBodyHTML(targetMonth, holidays) {
   const now = new Date(targetMonth);
   const year = now.getFullYear();
   const month = now.getMonth() + 1;
@@ -30,7 +44,7 @@ function getTableBodyHTML(targetMonth) {
         html += '<td class="disabled">' + num + '</td>';
         date += 1;
       } else {
-        if (nationalHolidays.indexOf(date) !== -1) {
+        if (holidays.indexOf(date) !== -1) {
           html += '<td class="holiday">' + date + '</td>';
         } else {
           html += '<td>' + date + '</td>';
@@ -48,5 +62,7 @@ function getTableBodyHTML(targetMonth) {
 const calendarBodyElement = document.querySelector('.calendar tbody');
 const calendarTitleElement = document.querySelector('.calendar-title');
 
-calendarTitleElement.innerText = getTitle(targetMonth);
-calendarBodyElement.innerHTML = getTableBodyHTML(targetMonth);
+const query = parseSearch(window.location.search);
+
+calendarTitleElement.innerText = getTitle(query.month);
+calendarBodyElement.innerHTML = getTableBodyHTML(query.month, query.holidays.map((holiday) => Number(holiday)));
