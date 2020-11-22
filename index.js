@@ -65,4 +65,4 @@ const calendarTitleElement = document.querySelector('.calendar-title');
 const query = parseSearch(window.location.search);
 
 calendarTitleElement.innerText = getTitle(query.month);
-calendarBodyElement.innerHTML = getTableBodyHTML(query.month, query.holidays.map((holiday) => Number(holiday)));
+calendarBodyElement.innerHTML = getTableBodyHTML(query.month, (query.holidays || []).map((holiday) => Number(holiday)));
