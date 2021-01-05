@@ -1,5 +1,5 @@
 function getTitle(targetMonth) {
-  return targetMonth.replace('/', '.');
+  return targetMonth.replace('/', '.').replace('-', '.');
 }
 
 function parseSearch(searchString) {
@@ -61,4 +61,4 @@ const calendarTitleElement = document.querySelector('.calendar-title');
 const query = parseSearch(window.location.search);
 
 calendarTitleElement.innerText = getTitle(query.month);
-calendarBodyElement.innerHTML = getTableBodyHTML(query.month, (query.holidays || '').split('').map((holiday) => Number(holiday)));
+calendarBodyElement.innerHTML = getTableBodyHTML(query.month, (query.holidays || '').split(',').map((holiday) => Number(holiday)));
