@@ -1,4 +1,5 @@
-function getTitle(targetMonth) {
+// Utils
+function getTitle(targetMonth = '') {
   return targetMonth.replace('/', '.').replace('-', '.');
 }
 
@@ -12,6 +13,9 @@ function parseSearch(searchString) {
   return result;
 }
 
+const query = parseSearch(window.location.search);
+
+// Calendar
 function getTableBodyHTML(targetMonth, holidays) {
   const now = new Date(targetMonth);
   const year = now.getFullYear();
@@ -58,7 +62,50 @@ function getTableBodyHTML(targetMonth, holidays) {
 const calendarBodyElement = document.querySelector('.calendar tbody');
 const calendarTitleElement = document.querySelector('.calendar-title');
 
-const query = parseSearch(window.location.search);
-
 calendarTitleElement.innerText = getTitle(query.month);
 calendarBodyElement.innerHTML = getTableBodyHTML(query.month, (query.holidays || '').split(',').map((holiday) => Number(holiday)));
+
+// Download
+document.querySelector('.download-button').addEventListener('click', () => {
+  html2canvas(document.querySelector('.calendar-container')).then(canvas => {
+    canvas.toBlob((blob) => {
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.download = `calendar-${getTitle(query.month)}.png`;
+      a.href = url;
+      a.click();
+      a.remove();
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 1E4);
+    }, 'image/png');
+  });
+});
+
+// Form
+const els = document.querySelectorAll('.calendar-form input');
+for (let i = 0; i < els.length; i += 1) {
+  const el = els[i];
+  const name = el.name;
+  if (query[name]) {
+    el.value = query[name];
+  }
+}
+
+document.querySelector('.calendar-form').addEventListener('change', (event) => {
+  const el = event.target;
+  console.log(el.value, el.name);
+});
+
+document.querySelector('.calendar-form').addEventListener('submit', (event) => {
+  event.preventDefault();
+  const el = event.currentTarget;
+  const inputElements = el.querySelectorAll('input');
+  const search = [];
+  for (let i = 0; i < inputElements.length; i += 1) {
+    const inputEl = inputElements[i];
+    search.push(`${inputEl.name}=${inputEl.value}`);
+  }
+  location.search = `?${search.join('&')}`;
+});

@@ -3,6 +3,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>fuu coffee calendar generator</title>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js" defer></script>
+    <script src="./index.js" defer></script>
 <style>
 * {
   box-sizing: border-box;
@@ -15,6 +17,36 @@ html {
   color: #666;
   font-size: 16px;
 }
+
+.calendar-form-container {
+  width: 100%;
+  padding: 36px 0 24px;
+  text-align: center;
+}
+.calendar-form-button {
+  border: solid 1px #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.calendar-form-container input {
+  padding: 8px;
+}
+
+.download-button-container {
+  width: 100%;
+  padding: 36px 0 24px;
+  text-align: center;
+}
+.download-button {
+  border: solid 1px #ddd;
+  border-radius: 4px;
+  padding: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .calendar-container {
   width: 100%;
   max-width: 800px;
@@ -59,6 +91,16 @@ html {
 </style>
   </head>
   <body>
+    <div class="calendar-form-container">
+      <form class="calendar-form">
+        <input name="month" type="month" />
+        <input name="holidays" type="text" placeholder="11,23" />
+        <button class="calendar-form-button">UPDATE</button>
+      </form>
+    </div>
+    <div class="download-button-container">
+      <button class="download-button">DOWNLOAD CALENDAR</button>
+    </div>
     <div class="calendar-container">
       <h2 class="calendar-title"></h1>
       <div class="calendar-wrapper">
@@ -78,6 +120,5 @@ html {
         </table>
       </div>
     </div>
-    <script src="./index.js"></script>
   </body>
 </html>
